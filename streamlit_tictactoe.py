@@ -78,7 +78,7 @@ def checkwin():
         st.session_state.gameover = True
         st.session_state.draws += 1
         st.warning(f"Draw! Nobody wins. There have been {st.session_state.draws} draws so far.")
-                
+
 def reset():
     for i in range(1, 10):
         st.session_state[str(i)+'state'] = False
@@ -88,7 +88,6 @@ def reset():
     st.session_state.gameover = False
 
     st.experimental_rerun()
-
 
 c = st.empty()
 
@@ -115,6 +114,5 @@ with c.container():
     labels = ['X wins', 'O wins', 'Draws']
     gamedata = [st.session_state.x_wins, st.session_state.o_wins, st.session_state.draws]
     ax.bar(labels, gamedata)
-    plt.ylim(0, 5)
     st.pyplot(fig)
 # st.session_state  # show session states of all variables
