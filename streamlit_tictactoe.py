@@ -4,9 +4,26 @@ Author: Sebastian Nagel (github: does-not-compile)
 """
 
 import streamlit as st
+import numpy as np
+import matplotlib.pyplot as plt
+
+# styling
+st.set_page_config(
+    page_title="TICTACTOE",
+    page_icon="X/O",
+    layout="centered",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'About': "# TIC TAC TOE"
+    }
+)
 
 # initialize session_state
 if 'turn' not in st.session_state: st.session_state.turn = True # switch for x and o turns
+if 'x_wins' not in st.session_state: st.session_state.x_wins = 0 # count x wins
+if 'o_wins' not in st.session_state: st.session_state.o_wins = 0 # count o wins
+if 'draws' not in st.session_state: st.session_state.draws = 0 # count draws
+if 'gameover' not in st.session_state: st.session_state.gameover = False # winning message
 for i in range(1, 10):
     if str(i) not in st.session_state: st.session_state[str(i)] = '.'   # populate session_state for button labels
     if (str(i)+"state") not in st.session_state: st.session_state[str(i)+"state"] = False   # populate session_state for button states
@@ -27,38 +44,77 @@ def callback(idx):
 
 def checkwin():
     """ checks if one player reached a winning combination of buttons! """
-    if st.session_state['1'] == 'x' and st.session_state['2'] == 'x' and st.session_state['3'] == 'x': st.warning("X WINS!")
-    if st.session_state['4'] == 'x' and st.session_state['5'] == 'x' and st.session_state['6'] == 'x': st.warning("X WINS!")
-    if st.session_state['7'] == 'x' and st.session_state['8'] == 'x' and st.session_state['9'] == 'x': st.warning("X WINS!")
-    if st.session_state['1'] == 'x' and st.session_state['4'] == 'x' and st.session_state['7'] == 'x': st.warning("X WINS!")
-    if st.session_state['2'] == 'x' and st.session_state['5'] == 'x' and st.session_state['8'] == 'x': st.warning("X WINS!")
-    if st.session_state['3'] == 'x' and st.session_state['6'] == 'x' and st.session_state['9'] == 'x': st.warning("X WINS!")
-    if st.session_state['1'] == 'x' and st.session_state['5'] == 'x' and st.session_state['9'] == 'x': st.warning("X WINS!")
-    if st.session_state['3'] == 'x' and st.session_state['5'] == 'x' and st.session_state['7'] == 'x': st.warning("X WINS!")
+    if st.session_state['1'] == 'x' and st.session_state['2'] == 'x' and st.session_state['3'] == 'x' or \
+    st.session_state['4'] == 'x' and st.session_state['5'] == 'x' and st.session_state['6'] == 'x' or \
+    st.session_state['7'] == 'x' and st.session_state['8'] == 'x' and st.session_state['9'] == 'x' or \
+    st.session_state['1'] == 'x' and st.session_state['4'] == 'x' and st.session_state['7'] == 'x' or \
+    st.session_state['2'] == 'x' and st.session_state['5'] == 'x' and st.session_state['8'] == 'x' or \
+    st.session_state['3'] == 'x' and st.session_state['6'] == 'x' and st.session_state['9'] == 'x' or \
+    st.session_state['1'] == 'x' and st.session_state['5'] == 'x' and st.session_state['9'] == 'x' or \
+    st.session_state['3'] == 'x' and st.session_state['5'] == 'x' and st.session_state['7'] == 'x': 
+        st.session_state.x_wins += 1
+        st.session_state.gameover = True
+        st.warning(f"X wins and has {st.session_state.x_wins} wins so far!")
 
-    if st.session_state['1'] == 'o' and st.session_state['2'] == 'o' and st.session_state['3'] == 'o': st.warning("O WINS!")
-    if st.session_state['4'] == 'o' and st.session_state['5'] == 'o' and st.session_state['6'] == 'o': st.warning("O WINS!")
-    if st.session_state['7'] == 'o' and st.session_state['8'] == 'o' and st.session_state['9'] == 'o': st.warning("O WINS!")
-    if st.session_state['1'] == 'o' and st.session_state['4'] == 'o' and st.session_state['7'] == 'o': st.warning("O WINS!")
-    if st.session_state['2'] == 'o' and st.session_state['5'] == 'o' and st.session_state['8'] == 'o': st.warning("O WINS!")
-    if st.session_state['3'] == 'o' and st.session_state['6'] == 'o' and st.session_state['9'] == 'o': st.warning("O WINS!")
-    if st.session_state['1'] == 'o' and st.session_state['5'] == 'o' and st.session_state['9'] == 'o': st.warning("O WINS!")
-    if st.session_state['3'] == 'o' and st.session_state['5'] == 'o' and st.session_state['7'] == 'o': st.warning("O WINS!")
+    if st.session_state['1'] == 'o' and st.session_state['2'] == 'o' and st.session_state['3'] == 'o' or \
+    st.session_state['4'] == 'o' and st.session_state['5'] == 'o' and st.session_state['6'] == 'o' or \
+    st.session_state['7'] == 'o' and st.session_state['8'] == 'o' and st.session_state['9'] == 'o' or \
+    st.session_state['1'] == 'o' and st.session_state['4'] == 'o' and st.session_state['7'] == 'o' or \
+    st.session_state['2'] == 'o' and st.session_state['5'] == 'o' and st.session_state['8'] == 'o' or \
+    st.session_state['3'] == 'o' and st.session_state['6'] == 'o' and st.session_state['9'] == 'o' or \
+    st.session_state['1'] == 'o' and st.session_state['5'] == 'o' and st.session_state['9'] == 'o' or \
+    st.session_state['3'] == 'o' and st.session_state['5'] == 'o' and st.session_state['7'] == 'o': 
+        st.session_state.o_wins += 1
+        st.session_state.gameover = True
+        st.warning(f"O wins and has {st.session_state.o_wins} wins so far!")
+
+    # draw?
+    # if all buttons have been pressed --> session_state[str(i)+state] are all True
+    # but no winner --> gameover == False
+    n = 0
+    for i in range(1, 10):
+        if st.session_state[str(i)+'state'] == True: n += 1
+    if n == 9 and st.session_state.gameover == False:
+        st.session_state.gameover = True
+        st.session_state.draws += 1
+        st.warning(f"Draw! Nobody wins. There have been {st.session_state.draws} draws so far.")
+                
+def reset():
+    for i in range(1, 10):
+        st.session_state[str(i)+'state'] = False
+        st.session_state[str(i)] = '.'
+    
+    st.session_state.turn = True
+    st.session_state.gameover = False
+
+    st.experimental_rerun()
 
 
-st.title("TIC TAC TOE")
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.button(label=st.session_state['1'], key='a', disabled=st.session_state['1state'], on_click=callback, args=('1', ))
-    st.button(label=st.session_state['2'], key='b', disabled=st.session_state['2state'], on_click=callback, args=('2', ))
-    st.button(label=st.session_state['3'], key='c', disabled=st.session_state['3state'], on_click=callback, args=('3', ))
-with col2:
-    st.button(label=st.session_state['4'], key='d', disabled=st.session_state['4state'], on_click=callback, args=('4', ))
-    st.button(label=st.session_state['5'], key='e', disabled=st.session_state['5state'], on_click=callback, args=('5', ))
-    st.button(label=st.session_state['6'], key='f', disabled=st.session_state['6state'], on_click=callback, args=('6', ))
-with col3:
-    st.button(label=st.session_state['7'], key='g', disabled=st.session_state['7state'], on_click=callback, args=('7', ))
-    st.button(label=st.session_state['8'], key='h', disabled=st.session_state['8state'], on_click=callback, args=('8', ))
-    st.button(label=st.session_state['9'], key='i', disabled=st.session_state['9state'], on_click=callback, args=('9', ))
+c = st.empty()
 
+with c.container():
+    st.title("TIC TAC TOE")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.button(label=st.session_state['1'], key='a', disabled=st.session_state['1state'], on_click=callback, args=('1', ))
+        st.button(label=st.session_state['2'], key='b', disabled=st.session_state['2state'], on_click=callback, args=('2', ))
+        st.button(label=st.session_state['3'], key='c', disabled=st.session_state['3state'], on_click=callback, args=('3', ))
+    with col2:
+        st.button(label=st.session_state['4'], key='d', disabled=st.session_state['4state'], on_click=callback, args=('4', ))
+        st.button(label=st.session_state['5'], key='e', disabled=st.session_state['5state'], on_click=callback, args=('5', ))
+        st.button(label=st.session_state['6'], key='f', disabled=st.session_state['6state'], on_click=callback, args=('6', ))
+    with col3:
+        st.button(label=st.session_state['7'], key='g', disabled=st.session_state['7state'], on_click=callback, args=('7', ))
+        st.button(label=st.session_state['8'], key='h', disabled=st.session_state['8state'], on_click=callback, args=('8', ))
+        st.button(label=st.session_state['9'], key='i', disabled=st.session_state['9state'], on_click=callback, args=('9', ))
+    
+    if st.button("Play again!"): reset()
+
+    fig = plt.figure()
+    ax = fig.add_axes([0, 0, 1, 1])
+    labels = ['X wins', 'O wins', 'Draws']
+    gamedata = [st.session_state.x_wins, st.session_state.o_wins, st.session_state.draws]
+    ax.bar(labels, gamedata)
+    plt.ylim(0, 5)
+    st.pyplot(fig)
 # st.session_state  # show session states of all variables
