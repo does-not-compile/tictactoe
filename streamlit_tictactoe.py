@@ -4,7 +4,6 @@ Author: Sebastian Nagel (github: does-not-compile)
 """
 
 import streamlit as st
-import numpy as np
 import matplotlib.pyplot as plt
 
 # styling
@@ -23,7 +22,8 @@ if 'turn' not in st.session_state: st.session_state.turn = True # switch for x a
 if 'x_wins' not in st.session_state: st.session_state.x_wins = 0 # count x wins
 if 'o_wins' not in st.session_state: st.session_state.o_wins = 0 # count o wins
 if 'draws' not in st.session_state: st.session_state.draws = 0 # count draws
-if 'gameover' not in st.session_state: st.session_state.gameover = False # winning message
+if 'gameover' not in st.session_state: st.session_state.gameover = False
+if 'message' not in st.session_state: st.session_state.message = ""
 for i in range(1, 10):
     if str(i) not in st.session_state: st.session_state[str(i)] = '.'   # populate session_state for button labels
     if (str(i)+"state") not in st.session_state: st.session_state[str(i)+"state"] = False   # populate session_state for button states
@@ -52,9 +52,12 @@ def checkwin():
     st.session_state['3'] == 'x' and st.session_state['6'] == 'x' and st.session_state['9'] == 'x' or \
     st.session_state['1'] == 'x' and st.session_state['5'] == 'x' and st.session_state['9'] == 'x' or \
     st.session_state['3'] == 'x' and st.session_state['5'] == 'x' and st.session_state['7'] == 'x': 
+        for i in range(1, 10):
+            st.session_state[str(i)+'state'] = True
         st.session_state.x_wins += 1
         st.session_state.gameover = True
-        st.warning(f"X wins and has {st.session_state.x_wins} wins so far!")
+        if st.session_state.x_wins > 1: st.session_state.message = f"X wins and has {st.session_state.x_wins} wins so far!"
+        else: st.session_state.message = f"X wins and has {st.session_state.x_wins} win so far!"
 
     if st.session_state['1'] == 'o' and st.session_state['2'] == 'o' and st.session_state['3'] == 'o' or \
     st.session_state['4'] == 'o' and st.session_state['5'] == 'o' and st.session_state['6'] == 'o' or \
@@ -64,10 +67,12 @@ def checkwin():
     st.session_state['3'] == 'o' and st.session_state['6'] == 'o' and st.session_state['9'] == 'o' or \
     st.session_state['1'] == 'o' and st.session_state['5'] == 'o' and st.session_state['9'] == 'o' or \
     st.session_state['3'] == 'o' and st.session_state['5'] == 'o' and st.session_state['7'] == 'o': 
+        for i in range(1, 10):
+            st.session_state[str(i)+'state'] = True
         st.session_state.o_wins += 1
         st.session_state.gameover = True
-        st.warning(f"O wins and has {st.session_state.o_wins} wins so far!")
-
+        if st.session_state.o_wins > 1: st.session_state.message = f"O wins and has {st.session_state.o_wins} wins so far!"
+        else: st.session_state.message = f"O wins and has {st.session_state.o_wins} win so far!"
     # draw?
     # if all buttons have been pressed --> session_state[str(i)+state] are all True
     # but no winner --> gameover == False
@@ -77,7 +82,8 @@ def checkwin():
     if n == 9 and st.session_state.gameover == False:
         st.session_state.gameover = True
         st.session_state.draws += 1
-        st.warning(f"Draw! Nobody wins. There have been {st.session_state.draws} draws so far.")
+        if st.session_state.draws > 1: st.session_state.message = f"Draw! Nobody wins. There have been {st.session_state.draws} draws so far."
+        else: st.session_state.message = f"Draw! Nobody wins. There has been {st.session_state.draws} draw so far."
 
 def reset():
     for i in range(1, 10):
@@ -86,6 +92,7 @@ def reset():
     
     st.session_state.turn = True
     st.session_state.gameover = False
+    st.session_state.message = ""
 
     st.experimental_rerun()
 
@@ -107,6 +114,8 @@ with c.container():
         st.button(label=st.session_state['8'], key='h', disabled=st.session_state['8state'], on_click=callback, args=('8', ))
         st.button(label=st.session_state['9'], key='i', disabled=st.session_state['9state'], on_click=callback, args=('9', ))
     
+    st.text(st.session_state.message)
+
     if st.button("Play again!"): reset()
 
     fig = plt.figure()
