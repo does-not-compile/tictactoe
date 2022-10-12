@@ -1,7 +1,4 @@
 # streamlit-tictactoe
-The game "TicTacToe", realized in python using the streamlit library.
-
-Hey there! 👋
 
 Just a fun little coding exercise to get acquainted with "streamlit" and its session_state function.
 
@@ -10,8 +7,4 @@ Just a fun little coding exercise to get acquainted with "streamlit" and its ses
                             ❌ ⭕️ ⭕️ 
 
 
-Have fun!
-
-Cheers
-
-- Sebastian
+Play it [here](https://does-not-compile-streamlit-tictactoe-streamlit-tictactoe-hb5iwp.streamlitapp.com/)! Have fun!
