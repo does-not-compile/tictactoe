@@ -1,7 +1,4 @@
 from enum import Enum
-import math
-
-from pure_eval import Evaluator
 
 class Player(Enum):
     Blank = 0
