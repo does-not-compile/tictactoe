@@ -6,7 +6,6 @@ Author: Sebastian Nagel (github: does-not-compile)
 from enum import Enum
 from math import *
 
-
 class Player(Enum):
     AI = 1
     Human = -1
