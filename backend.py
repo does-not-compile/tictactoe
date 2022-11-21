@@ -1,150 +1,187 @@
+"""
+Backened for TicTacToe
+Author: Sebastian Nagel (github: does-not-compile)
+"""
+
 from enum import Enum
+from math import *
 
 class Player(Enum):
-    Blank = 0
-    Human = -1
     AI = 1
+    Human = -1
+    Blank = 0
+
 
 class GameState(Enum):
     Ongoing = -1
     Draw = 0
     Over = 1
 
+
 class TicTacToe():
-    """Creates a TicTacToe game"""
-    def __init__(self, first: Player = Player.Human):
+
+    def __init__(self, symbolAI: str = 'X', symbolHuman: str = 'O', firstPlayer: Player = Player.AI):
+
+        self.symbolAI = symbolAI
+        self.symbolHuman = symbolHuman
+        self.currentPlayer = firstPlayer
+        self.symbolMap =  {Player.AI: symbolAI, Player.Human: symbolHuman, Player.Blank: '_'}
+
         self.board = [[Player.Blank, Player.Blank, Player.Blank],
                       [Player.Blank, Player.Blank, Player.Blank],
                       [Player.Blank, Player.Blank, Player.Blank]]
-        self.first = first
-        self.turn = self.first
-        self.state = GameState.Ongoing
-        self.winner = Player.Blank
-
-    def setBoard(self, state: list):
-        if len(state) == 3 and [len(i) for i in state] == [3, 3, 3]:
-            self.board = state
-            self.showBoard()
-            return self.board
-
-    def move(self, x: int, y: int):
-        """Modifies the board with the respective player's symbol. Returns true for valid move and false for invalid move."""
-        # validate move
-        if x <=2 and y <= 2 and self.board[x][y] == Player.Blank:
-            self.board[x][y] = self.turn
-            self.evaluate(self.turn)
-            self.turn = Player(self.turn.value * -1) # -1 * -1 = 1 and 1 * -1 = -1 --> switches depending on input!
-            self.showBoard()
-            return True
-        else: return False
-    
-    def evaluate(self, lastPlayer: Player):
-        """Check if one player has already won"""
-        # not pretty, but does the job:
-        # Check horizontals
-        if self.board[0][0] != Player.Blank and self.board[0][0] == self.board[0][1] and self.board[0][1] == self.board[0][2] or \
-           self.board[1][0] != Player.Blank and self.board[1][0] == self.board[1][1] and self.board[1][1] == self.board[1][2] or \
-           self.board[2][0] != Player.Blank and self.board[2][0] == self.board[2][1] and self.board[2][1] == self.board[2][2]:
-            self.state = GameState.Over
-            self.winner = lastPlayer
-            return self.state, self.winner
-        # Check verticals
-        if self.board[0][0] != Player.Blank and self.board[0][0] == self.board[1][0] and self.board[1][0] == self.board[2][0] or \
-           self.board[0][1] != Player.Blank and self.board[0][1] == self.board[1][1] and self.board[1][1] == self.board[2][1] or \
-           self.board[0][2] != Player.Blank and self.board[0][2] == self.board[1][2] and self.board[1][2] == self.board[2][2]:
-            self.state = GameState.Over
-            self.winner = lastPlayer
-            return self.state, self.winner
-        # Check diagnoals
-        if self.board[0][0] != Player.Blank and self.board[0][0] == self.board[1][1] and self.board[1][1] == self.board[2][2] or \
-           self.board[0][2] != Player.Blank and self.board[0][2] == self.board[1][1] and self.board[1][1] == self.board[2][0]:
-            self.state = GameState.Over
-            self.winner = lastPlayer
-            return self.state, self.winner
-        # Check for Draw
-        blanks = sum([self.board[i].count(Player.Blank) for i in range(3)])
-        if self.state != GameState.Over and blanks == 0: 
-            self.state = GameState.Draw
-            self.winner = Player.Blank
-            return self.state, None
 
     def showBoard(self):
+        """Pretty print of the board.
+
+        Args:
+            b (list, optional): Current board.
+        """
+
+        b: list = self.board
+
         for i in range(3):
             print("-"*13)
             for j in range(3):
-                if self.board[i][j] == self.first: print("| X ", end="")
-                elif self.board[i][j] != self.first and self.board[i][j] != Player.Blank: print("| O ", end="")
+                if b[i][j] == Player.AI: print(f"| {self.symbolAI} ", end="")
+                elif b[i][j] == Player.Human: print(f"| {self.symbolHuman} ", end="")
                 else: print("|   ", end="")
             print("|")
         print("-"*13)
 
 
-class AI:
-    """Calculates the best move based on the Minimax recursive algorithm"""
-    def __init__(self, t: TicTacToe):
-        self.t = t
-        self.score = 0
-        self.board = t.board
+    def checkWinner(self):
+        """Checks the board for game ending combinations (horizontal, vertical, diagonal).
+           Returns (GameState.Ongoing, Player.Blank) if no endstate has been reached (i.e. no win or draw). 
+           Depends on classes GameState and Player.
 
-    def copyState(self):
-        newState = [[Player.Blank, Player.Blank, Player.Blank],
-                    [Player.Blank, Player.Blank, Player.Blank],
-                    [Player.Blank, Player.Blank, Player.Blank]]
+        Args:
+            board (list, optional): A list containing the current board status
+
+        Returns:
+            GameState, Player: None, None if no endpoint. Winner is None if GameState is Draw.
+        """
+
+        b: list = self.board
+
+        # check horizontals
         for i in range(3):
-            for j in range(3):
-                newState[i][j] = self.board[i][j]
-        return newState
-
-    def nextMove(self):
-        """MiniMax Algorithm"""
-        # get current state
-        if t.state == GameState.Over and t.winner == Player.AI: return (Player.AI.value, 0)
-        elif t.state == GameState.Over and t.winner == Player.Human: return (Player.Human.value, 0)
-        elif t.state == GameState.Draw: return (Player.Blank, 0)
-
-        # if game still ongoing, continue:
-        moves = []
-        emptyFields = []
-
+            if b[i][0] != Player.Blank and b[i][0] == b[i][1] and b[i][1] == b[i][2]:
+                return GameState.Over, b[i][0]
+        # Check verticals
         for i in range(3):
-            for j in range(3):
-                if t.board[i][j] == Player.Blank: emptyFields.append(i*3 + (j+1)) # appends fields labeled 1-9 if all are empty
+            if b[0][i] != Player.Blank and b[0][i] == b[1][i] and b[1][i] == b[2][i]:
+                return GameState.Over, b[0][i]
+        # Check diagonals
+        if b[0][0] != Player.Blank and b[0][0] == b[1][1] and b[1][1] == b[2][2] or \
+           b[0][2] != Player.Blank and b[0][2] == b[1][1] and b[1][1] == b[2][0]:
+            return GameState.Over, b[1][1]
+        # Check for draw after all else
+        blanks = sum([b[i].count(Player.Blank) for i in range(3)])
+        if blanks == 0: 
+            return GameState.Draw, Player.Blank
         
-        for f in emptyFields:
-            move = {}
-            move['index'] = f
-            newState = self.copyState(self.board)
-            t.setBoard(newState)
-            #t.move(x, y)           
+        # if nothing, return Ongoing,  Blank
+        return GameState.Ongoing, Player.Blank
 
 
-# START THE GAME
-t = None  
-def startGame():
-    global t
-    startingPlayer = input("Human or AI first (h/ai): ")
-    if startingPlayer == 'h': 
-        t = TicTacToe(Player.Human)
-        print("You go first then!")
-    elif startingPlayer == 'ai':
-        t = TicTacToe(Player.AI)
-        print("AI will start!")
-    else: 
-        print("Input not recognized.")
-        startGame()
+    def _minimax(self, board: list, depth: int, isMaximizing: bool):
 
-startGame()
+        result, winner = self.checkWinner()
+        if result != GameState.Ongoing:
+            return winner.value
+        
+        # AI turn
+        if isMaximizing:
+            highscore = -inf
+            for i in range(3):
+                for j in range(3):
+                    if board[i][j] == Player.Blank:
+                        board[i][j] = Player.AI
+                        score = self._minimax(board, depth+1, False)
+                        board[i][j] = Player.Blank
+                        if score > highscore:
+                            highscore = score
+            
+            return highscore
+        
+        # Human turn
+        else:
+            highscore = inf
+            for i in range(3):
+                for j in range(3):
+                    if board[i][j] == Player.Blank:
+                        board[i][j] = Player.Human
+                        score = self._minimax(board, depth+1, True)
+                        board[i][j] = Player.Blank
+                        if score < highscore:
+                            highscore = score
+            
+            return highscore
 
-ai = AI(t)
-print(ai.nextMove())
 
-# if t != None:
-#     while t.state == GameState.Ongoing:
-#         coord = input("Please give your next move as coordinates (x, y): ")
-#         x, y = coord.split(',')
-#         if t.move(int(x), int(y)): t.showBoard()
-#         else: pass
-#     if t.state == GameState.Over:
-#         print("We have a winner! It's ", t.winner.value, "!")
-#     elif t.state == GameState.Draw:
-#         print("We have a Draw! It's nobody's game!")
+    def bestMove(self):
+        # AI turn
+        highscore = -inf
+        move = []
+        for i in range(3):
+            for j in range(3):
+                if self.board[i][j] == Player.Blank:
+                    self.board[i][j] = Player.AI
+                    score = self._minimax(self.board, 0, False)
+                    if score > highscore:
+                        highscore = score
+                        move = [i, j]
+                    self.board[i][j] = Player.Blank
+        if not move == []:
+            self.board[move[0]][move[1]] = Player.AI
+            
+
+    def playerMove(self, row: int, col: int):
+        # result, winner = self.checkWinner()
+        # if result == None and winner == None:
+            
+        if self.board[row][col] == Player.Blank:
+            self.board[row][col] = Player.Human
+        else:
+            print('Illegal move. Please choose a different field.')
+            self.playerMove()
+
+
+### If executed in the command line, you can play it there:
+if __name__ == '__main__':
+    result, winner = GameState.Ongoing, Player.Blank
+    firstPlayer = input('Who should start (Human: h / AI: a): ')
+    if firstPlayer == 'h': 
+        currentPlayer = Player.Human
+        symbolHuman = 'X'
+        symbolAI = 'O'
+        game = TicTacToe(symbolAI, symbolHuman, currentPlayer)
+
+    elif firstPlayer == 'a': 
+        currentPlayer = Player.AI
+        symbolHuman = 'O'
+        symbolAI = 'X'
+        game = TicTacToe(symbolAI, symbolHuman, currentPlayer)
+    else: print('Input not recognized.')
+
+    while result == GameState.Ongoing and winner == Player.Blank:
+
+            if game.currentPlayer == Player.Human:
+                move = input('Your move: (row, column): ').split(',')
+                row = int(move[0].strip())
+                col = int(move[1].strip())
+                game.playerMove(row, col)
+                game.currentPlayer = Player.AI
+
+            else:
+                game.bestMove()
+                game.currentPlayer = Player.Human
+
+            result, winner = game.checkWinner()
+            game.showBoard()
+    else:
+        if result == GameState.Draw:
+            print(f"Game over! It's a {result.name}! How boring.")
+        else:
+            print(f"Game over! It's a win for the {winner.name}!")
