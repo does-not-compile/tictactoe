@@ -8,6 +8,6 @@ A fun coding exercise to learn about the minimax-algorithm and get acquainted wi
 
 In this implementation, you will play against a bot which is using the minimax-algorithm to compute the best move. 
 
-I'm sorry to say the best you can do is tie. Don't believe me? Play [here](https://does-not-compile-streamlit-tictactoe-frontend-wxory4.streamlit.app/)!
+I'm sorry to say the best you can do is tie. Don't believe me? Play [here](https://snagel.io/#tictactoe)!
 
 Have fun!
