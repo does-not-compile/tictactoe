@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <link rel="stylesheet" href={{ url_for('static', filename='/css/ttt.css') }}>
+    </head>
+    <body>
+        <div class="col center">
+            <form id="ttt" name="ttt" class="text" method="POST" action="{{ url_for('ttt') }}">
+                <input class="ttt_btn" id="btn1" name="btn1" value="{{ vals.btn1_value | safe }}" type="button" onclick="setUserMove(this.id);" {{vals.btn1_style | safe}} {{ vals.btn1_disabled }} >
+                <input class="ttt_btn" id="btn2" name="btn2" value="{{ vals.btn2_value | safe }}" type="button" onclick="setUserMove(this.id);" {{vals.btn2_style | safe}} {{ vals.btn2_disabled }} >
+                <input class="ttt_btn" id="btn3" name="btn3" value="{{ vals.btn3_value | safe }}" type="button" onclick="setUserMove(this.id);" {{vals.btn3_style | safe}} {{ vals.btn3_disabled }} ><br>
+                <input class="ttt_btn" id="btn4" name="btn4" value="{{ vals.btn4_value | safe }}" type="button" onclick="setUserMove(this.id);" {{vals.btn4_style | safe}} {{ vals.btn4_disabled }} >
+                <input class="ttt_btn" id="btn5" name="btn5" value="{{ vals.btn5_value | safe }}" type="button" onclick="setUserMove(this.id);" {{vals.btn5_style | safe}} {{ vals.btn5_disabled }} >
+                <input class="ttt_btn" id="btn6" name="btn6" value="{{ vals.btn6_value | safe }}" type="button" onclick="setUserMove(this.id);" {{vals.btn6_style | safe}} {{ vals.btn6_disabled }} ><br>
+                <input class="ttt_btn" id="btn7" name="btn7" value="{{ vals.btn7_value | safe }}" type="button" onclick="setUserMove(this.id);" {{vals.btn7_style | safe}} {{ vals.btn7_disabled }} >
+                <input class="ttt_btn" id="btn8" name="btn8" value="{{ vals.btn8_value | safe }}" type="button" onclick="setUserMove(this.id);" {{vals.btn8_style | safe}} {{ vals.btn8_disabled }} >
+                <input class="ttt_btn" id="btn9" name="btn9" value="{{ vals.btn9_value | safe }}" type="button" onclick="setUserMove(this.id);" {{vals.btn9_style | safe}} {{ vals.btn9_disabled }} ><br>
+                <input type="hidden" id="boardState" name="boardState" value="{{ vals.boardState }}">
+            </form>
+            <div class="ttt_text">
+                {% block content %}
+                    {% if vals.gamestate == 1 %}
+                        {% if vals.winner == 1 %}
+                            You lost! It's okay. You can always <a href="https://www.snagel.io/#tictactoe" onclick="parent.location.reload(true);">try again</a>!
+                        {% else %}
+                            You won! This message will never be displayed :D
+                        {% endif %}
+                    {% elif vals.gamestate == 0 %}
+                        A draw! How boring. <a href="https://www.snagel.io/#tictactoe" onclick="parent.location.reload(true);">Try again</a>!
+                    {% else %}
+                        Ongoing game. How exciting!
+                    {% endif %}
+                {% endblock content %}
+            </div>
+        </div>
+    </body>
+    <script>
+        function setUserMove(btn_id) {
+            // get current board state
+            boardState = document.getElementById('boardState').value.replace('[', '').replace(']', '').split(',');
+            // get player move
+            playerMove = btn_id.split('')[3];
+            // update board state with player move
+            boardState[playerMove-1] = -1;
+            // update hidden field
+            document.forms["ttt"].elements["boardState"].value = boardState;
+            // update buttons
+            document.getElementById(btn_id).value = 'X';
+            document.getElementById(btn_id).setAttribute('disabled', 'disabled');
+            // submit hidden field value
+            document.forms["ttt"].submit();
+        };
+    </script>
+</html>

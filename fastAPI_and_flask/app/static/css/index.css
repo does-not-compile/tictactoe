@@ -1,0 +1,232 @@
+/* ### colors  ### */
+/* ### parameters ### */
+/* ### responsive design mixin ### */
+/* ### general ### */
+:root {
+  font-size: 16px;
+}
+@media (max-width: 480px) {
+  :root {
+    font-size: 12px;
+  }
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  font-family: "SF Pro Text", "SF Pro Icon", "Myriad Pro", "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-weight: 200;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #0a3aff;
+  transition: -webkit-text-decoration 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: text-decoration 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: text-decoration 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), -webkit-text-decoration 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.flex, .col, .row {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  min-height: -webkit-fit-content;
+  min-height: -moz-fit-content;
+  min-height: fit-content;
+}
+
+.row {
+  flex-direction: row;
+}
+@media (max-width: 480px) {
+  .row {
+    flex-direction: column;
+  }
+}
+
+.col {
+  flex-direction: column;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.content {
+  align-items: center;
+  line-height: 1.5;
+  padding: 3rem;
+  margin-left: 5%;
+  margin-right: 5%;
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
+}
+@media (max-width: 480px) {
+  .content {
+    -webkit-hyphens: none;
+        -ms-hyphens: none;
+            hyphens: none;
+  }
+}
+
+.super-header {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #0a3aff;
+  line-height: 1.2;
+}
+
+.header {
+  position: relative;
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1;
+  padding: 0 0 11px 0;
+}
+
+.text {
+  font-size: 1.3rem;
+  font-weight: 200;
+  line-height: 1.5;
+}
+
+#about-me-li { /* contact me link */
+  font-weight: 400;
+  color: #0a3aff;
+  border: 1px solid #0a3aff;
+  border-radius: 5px;
+  transition: all 0.25s ease-in-out;
+  background: linear-gradient(to left, transparent 50%, #0a3aff 50%) right;
+  background-size: 200%;
+  transition: 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#about-me-li:hover {
+  color: #fff;
+  background-position: left;
+}
+
+/* overwrite general a::before of menu/navigation */
+#about-me-li::before {
+  content: "";
+}
+
+/* ### Modifikatoren ### */
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.v-center {
+  align-items: center;
+}
+
+.h-center {
+  justify-content: center;
+}
+
+.spacer {
+  width: 10%;
+}
+
+.blurry {
+  background: rgba(236, 241, 245, 0.1411764706);
+  mix-blend-mode: normal;
+  -webkit-backdrop-filter: blur(20px);
+          backdrop-filter: blur(20px);
+}
+
+.s {
+  width: 30%;
+}
+@media (max-width: 480px) {
+  .s {
+    width: 100vw;
+  }
+}
+
+.m {
+  width: 50%;
+}
+@media (max-width: 480px) {
+  .m {
+    width: 100vw;
+  }
+}
+
+.l {
+  width: 75%;
+}
+@media (max-width: 480px) {
+  .l {
+    width: 100vw;
+  }
+}
+
+.fw {
+  width: 100vw;
+}
+
+.fh {
+  height: 100vh;
+}
+
+/* ### landing page ### */
+@media (max-width: 480px) {
+  #landing-text {
+    align-items: space-around;
+    padding: 10rem 0 0 0;
+  }
+}
+
+.landing-links {
+  /* extends text class */
+  text-align: center;
+  padding-top: 11px;
+}
+.landing-links a {
+  padding: 0 1rem;
+}
+@media (max-width: 480px) {
+  .landing-links a {
+    display: block;
+    margin: 1rem;
+    padding: 1rem;
+  }
+}
+.landing-links .landing-link:hover {
+  text-decoration: underline;
+}
+@media (max-width: 480px) {
+  .landing-links .landing-link:hover {
+    text-decoration: none;
+  }
+}
+.landing-links .landing-link::after {
+  display: inline-block;
+  margin: 0 0 0 0.3em;
+  content: ">";
+  color: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: 1;
+  text-decoration: none;
+}
+@media (max-width: 480px) {
+  .landing-links .landing-link::after {
+    content: "";
+  }
+}
+
+#landing-image img {
+  width: 100%;
+}/*# sourceMappingURL=index.css.map */

@@ -1,0 +1,74 @@
+/* ### colors  ### */
+/* ### responsive design mixin ### */
+/* ### general ### */
+:root {
+  font-size: 16px;
+}
+@media (max-width: 480px) {
+  :root {
+    font-size: 12px;
+  }
+}
+
+body {
+  position: relative;
+  font-family: "SF Pro Text", "SF Pro Icon", "Myriad Pro", "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-weight: 200;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #0a3aff;
+  transition: -webkit-text-decoration 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: text-decoration 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: text-decoration 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), -webkit-text-decoration 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.flex, .col {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  min-height: -webkit-fit-content;
+  min-height: -moz-fit-content;
+  min-height: fit-content;
+}
+
+.col {
+  flex-direction: column;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 480px) {
+  .center {
+    justify-content: flex-start;
+  }
+}
+
+.ttt_btn {
+  font-family: monospace;
+  font-size: calc(12px + 3vw);
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 2px 2px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.ttt_btn:hover {
+  background-color: #0a3aff;
+}
+
+.ttt_btn:disabled {
+  background-color: #939393;
+}
+
+.ttt_text {
+  font-size: 1.3rem;
+  font-weight: 200;
+  line-height: 1.5;
+}/*# sourceMappingURL=ttt.css.map */
