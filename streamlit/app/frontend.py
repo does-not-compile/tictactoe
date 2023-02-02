@@ -1,7 +1,32 @@
 """
-Streamlit Frontend for snagel.io: TicTacToe
+Backened for TicTacToe
 Author: Sebastian Nagel (github: does-not-compile)
 """
+
+#   _____________   _____________   _____________
+#   |XXX|XXX|XXX|   |   |XXX|   |   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |   |XXX|   |   |XXX|   |   |
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |   |XXX|   |   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#
+#   _____________   _____________   _____________
+#   |XXX|XXX|XXX|   |XXX|XXX|XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|XXX|XXX|   |XXX|   |   |
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|   |XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#
+#   _____________   _____________   _____________
+#   |XXX|XXX|XXX|   |XXX|XXX|XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|   |XXX|   |XXX|XXX|   |
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|XXX|XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#
 
 import streamlit as st
 import backend as backend

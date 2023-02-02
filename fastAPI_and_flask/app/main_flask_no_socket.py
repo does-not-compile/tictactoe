@@ -1,5 +1,35 @@
+"""
+Backened for TicTacToe
+Author: Sebastian Nagel (github: does-not-compile)
+"""
+
+#   _____________   _____________   _____________
+#   |XXX|XXX|XXX|   |   |XXX|   |   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |   |XXX|   |   |XXX|   |   |
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |   |XXX|   |   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#
+#   _____________   _____________   _____________
+#   |XXX|XXX|XXX|   |XXX|XXX|XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|XXX|XXX|   |XXX|   |   |
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|   |XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#
+#   _____________   _____________   _____________
+#   |XXX|XXX|XXX|   |XXX|XXX|XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|   |XXX|   |XXX|XXX|   |
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|XXX|XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#
+
 from flask import Flask, render_template, request
-# import numpy as np
+import numpy as np
 import backend as backend
     
 # create flaskApp
@@ -38,14 +68,7 @@ def ttt():
     else:
 
         # get current board state
-        # boardState = np.reshape(np.array([backend.Player(int(s)) for s in request.form['boardState'].split(',')]), (3, 3)).tolist()
-
-        # NUMPY BYPASS BECAUSE NAMECHEAP CAN'T INSTALL IT FOR SOME REASON
-        boardState = []
-        for i in range(3):
-            boardState.append([backend.Player(int(s)) for s in request.form['boardState'].split(',')[3*i:(i+1)*3]])
-
-        print(boardState)
+        boardState = np.reshape(np.array([backend.Player(int(s)) for s in request.form['boardState'].split(',')]), (3, 3)).tolist()
 
         # create TTT object and setBoard to boardState
         t = backend.TicTacToe(symbolAI='O', symbolHuman='X', firstPlayer=backend.Player.Human)
@@ -70,13 +93,7 @@ def ttt():
             state, winner = t.checkWinner()
 
         # update ttt_vals and return
-        # boardState = np.ravel(t.board)
-        # NUMPY BYPASS BECAUSE NAMECHEAP CAN'T INSTALL IT FOR SOME REASON
-        def ravel(arr):
-            return [i for j in arr for i in j]
-
-        boardState = ravel(t.board)
-
+        boardState = np.ravel(t.board)
         boardState = ['&nbsp;' if i.value == 0 else 'X' if i.value == -1 else 'O' for i in boardState]
 
         if state == backend.GameState.Ongoing:
@@ -95,7 +112,7 @@ def ttt():
 
         ttt_vals['gamestate'] = state.value
         ttt_vals['winner'] = winner.value
-        ttt_vals['boardState'] = [i.value for i in ravel(t.board)]
+        ttt_vals['boardState'] = [i.value for i in np.ravel(t.board)]
 
         return render_template('ttt_iframe_game.html', vals=ttt_vals)
         

@@ -1,3 +1,33 @@
+"""
+Backened for TicTacToe
+Author: Sebastian Nagel (github: does-not-compile)
+"""
+
+#   _____________   _____________   _____________
+#   |XXX|XXX|XXX|   |   |XXX|   |   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |   |XXX|   |   |XXX|   |   |
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |   |XXX|   |   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#
+#   _____________   _____________   _____________
+#   |XXX|XXX|XXX|   |XXX|XXX|XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|XXX|XXX|   |XXX|   |   |
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|   |XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#
+#   _____________   _____________   _____________
+#   |XXX|XXX|XXX|   |XXX|XXX|XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|   |XXX|   |XXX|XXX|   |
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|XXX|XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#
+
 from flask import Flask, render_template
 from flask_sock import Sock
 import backend as backend

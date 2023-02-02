@@ -1,3 +1,34 @@
+"""
+Backened for TicTacToe
+Author: Sebastian Nagel (github: does-not-compile)
+"""
+
+#   _____________   _____________   _____________
+#   |XXX|XXX|XXX|   |   |XXX|   |   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |   |XXX|   |   |XXX|   |   |
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |   |XXX|   |   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#
+#   _____________   _____________   _____________
+#   |XXX|XXX|XXX|   |XXX|XXX|XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|XXX|XXX|   |XXX|   |   |
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|   |XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#
+#   _____________   _____________   _____________
+#   |XXX|XXX|XXX|   |XXX|XXX|XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|   |XXX|   |XXX|XXX|   |
+#   -------------   -------------   -------------
+#   |   |XXX|   |   |XXX|XXX|XXX|   |XXX|XXX|XXX|
+#   -------------   -------------   -------------
+#
+
+# In your CLI, change to the "app" directory. Then run:
 # uvicorn main_fastAPI:app --host 127.0.0.1 --port 8080 --reload
 
 from fastapi import FastAPI, WebSocket, Request
