@@ -1,6 +1,6 @@
 # Tic-tac-toe ([wiki](https://en.wikipedia.org/wiki/Tic-tac-toe))
 
-A fun coding exercise to learn about the minimax-algorithm and get acquainted with "streamlit" and its session_state function.
+A fun coding exercise to learn about the minimax-algorithm and get acquainted with "streamlit" and its session_state function. I've since also uploaded code to run it using fastAPI (with websockets) and flask (with and without websockets).
 
                             ❌ ❌ ⭕️
                             ⭕️ ⭕️ ❌
