@@ -1,0 +1,95 @@
+/* ### colors  ### */
+$primarycolor: #0a3aff; //#2a7bff; // #6464ff;
+$secondarycolor: #000000;
+$tertiarycolor: #5c00e9; //#2a5bff; //#f3410b;
+$blurrycolor: #ECF1F524;
+$linkdefaultcolor: #000000;
+$linkedincolor: #2867B2;
+$twittercolor: #00ACED;
+
+/* ### responsive design mixin ### */
+@mixin breakpoint($point) {
+    @if $point == desktop {
+      @media (min-width: 1201px) { @content ; }
+   }
+    @else if $point == laptop {
+      @media (min-width: 1025px) { @content ; }
+   }
+     @else if $point == tablet {
+      @media (min-width: 769px) { @content ; }
+   }
+    @else if $point == phablet {
+      @media (min-width: 481px)  { @content ; }
+   }
+   @else if $point == mobileonly {
+      @media (max-width: 480px)  { @content ; }
+ 
+   }
+ }
+
+/* ### general ### */
+:root {
+    font-size: 16px;
+
+    @include breakpoint(mobileonly) {
+        font-size: 12px
+    }
+}
+
+body { 
+    position: relative;
+    font-family: 'SF Pro Text', 'SF Pro Icon', 'Myriad Pro', 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 200;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: $primarycolor;
+    transition: text-decoration 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.flex {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    min-height: fit-content;
+}
+
+.col {
+    @extend .flex;
+    flex-direction: column;
+}
+
+.center {
+    align-items: center;
+    justify-content: center;
+    @include breakpoint(mobileonly) {
+        justify-content: flex-start;
+    }
+}
+
+.ttt_btn {
+    font-family: monospace;
+    font-size: calc(12px + 3vw);
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 2px 2px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.ttt_btn:hover {
+    background-color: $primarycolor;
+}
+
+.ttt_btn:disabled {
+    background-color: #939393;
+}
+
+.ttt_text {
+    font-size: 1.3rem;
+    font-weight: 200;
+    line-height: 1.5;
+}
