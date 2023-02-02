@@ -28,6 +28,9 @@ Author: Sebastian Nagel (github: does-not-compile)
 #   -------------   -------------   -------------
 #
 
+# In you CLI, cd to the "streamlit" directory, then execute
+# streamlit run frontend.py
+
 from enum import Enum
 from math import *
 
