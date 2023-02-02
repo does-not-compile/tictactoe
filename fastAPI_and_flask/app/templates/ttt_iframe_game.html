@@ -16,7 +16,7 @@
                 <input class="ttt_btn" id="btn9" name="btn9" value="{{ vals.btn9_value | safe }}" type="button" onclick="setUserMove(this.id);" {{vals.btn9_style | safe}} {{ vals.btn9_disabled }} ><br>
                 <input type="hidden" id="boardState" name="boardState" value="{{ vals.boardState }}">
             </form>
-            <div class="ttt_text">
+            <div class="text">
                 {% block content %}
                     {% if vals.gamestate == 1 %}
                         {% if vals.winner == 1 %}

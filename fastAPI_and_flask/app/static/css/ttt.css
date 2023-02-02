@@ -48,6 +48,45 @@ a {
   }
 }
 
+.content {
+  align-items: center;
+  line-height: 1.5;
+  padding: 3rem;
+  margin-left: 5%;
+  margin-right: 5%;
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
+}
+@media (max-width: 480px) {
+  .content {
+    -webkit-hyphens: none;
+        -ms-hyphens: none;
+            hyphens: none;
+  }
+}
+
+.super-header {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #0a3aff;
+  line-height: 1.2;
+}
+
+.header {
+  position: relative;
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1;
+  padding: 0 0 11px 0;
+}
+
+.text {
+  font-size: 1.3rem;
+  font-weight: 200;
+  line-height: 1.5;
+}
+
 .ttt_btn {
   font-family: monospace;
   font-size: calc(12px + 3vw);
@@ -65,10 +104,4 @@ a {
 
 .ttt_btn:disabled {
   background-color: #939393;
-}
-
-.ttt_text {
-  font-size: 1.3rem;
-  font-weight: 200;
-  line-height: 1.5;
 }/*# sourceMappingURL=ttt.css.map */

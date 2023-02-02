@@ -107,3 +107,6 @@ dmypy.json
 .DS_Store
 # vscode Stuff
 .vscode
+# css stuff
+.scss
+.map

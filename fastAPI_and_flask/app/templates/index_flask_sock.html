@@ -3,88 +3,33 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Sebastian Nagel</title>
+        <title>TicTacToe served via Flask | Sebastian Nagel</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-        <link rel="icon" href={{ url_for('static', filename='/img/fav/favicon.png') }} type="image/png">
-        <link rel="stylesheet" href={{ url_for('static', filename='/css/index.css') }}>
         <link rel="stylesheet" href={{ url_for('static', filename='/css/ttt.css') }}>
-        <link rel="stylesheet" href={{ url_for('static', filename='/css/interaction.css') }}>
     </head>
     <body>
-        <div id="switcher">
-            <div class="col space-between v-center">
-                <div class="content" id="landing-text">
-                    <div class="header" style="text-align:center">
-                        Hello World
-                    </div>
-                    <div class="text" style="text-align:center;">
-                        My name is Sebastian and I'm a <nobr>Data Scientist</nobr>
-                    </div>
-                    <div class="text landing-links">
-                        <a href="#aboutme" class="landing-link">About Me</a>
-                        <a href="https://github.com/does-not-compile" target="_blank" class="landing-link">Projects</a>
-                        <a href="#tictactoe" class="landing-link">Play a game</a>
-                        <!-- <label class="switch" id="darkmode">
-                            <input type="checkbox" onclick="dm()">
-                            <span class="slider">
-                                <span class="text" id="d"></span>
-                                <span class="text" id="n"></span>
-                            </span>
-                        </label> -->
-                    </div>
-                </div>
-                <div class="content" id="landing-image" style="padding: 0;">
-                    <img alt="Sebastian Nagel" src={{ url_for('static', filename='/img/sebastian.png') }} />
-                </div>
+        <div class="col center" id="tictactoe">
+            <div class="content m">
+                <div class="super-header">Have a break, have a...</div>
+                <div class="header"><nobr>...Tic Tac Toe</nobr></div>
+                <div class="text">The app below was programmed in python using the Flask library. It was a quick exercise to learn about APIs, app deployment and the <i>minimax</i> algorithm. You can find the code on my <a href="https://github.com/does-not-compile/streamlit-tictactoe" target="_blank">GitHub</a>. Have fun playing!</div>
             </div>
-            <div class="col center" id="aboutme" style="background-color:#000;color:#fff">
-                <div class="content m">
-                    <div class="super-header">
-                        from in vitro to in silico
-                    </div>
-                    <div class="header">
-                        Professional history
-                    </div>
-                    <div class="text">
-                        <p>
-                            I am a data scientist with a life science background. By training, I am a biomedical research scientist with an MSc in Molecular Medicine: Generating high quality data, analysing it and deriving new hypotheses and building models have always sparked joy in me! However, as I felt myself gravitating more and more towards the statistical part of research, I realized I had stumbled into data science!
-                        </p>
-                        <p>
-                            I capitalized on that momentum and studied the math and statistics underlying Data Analytics and Machine Learning. In doing so, I was awarded several certificates (Google Data Analytics Professional, IBM Machine Learning Professional) with others still ongoing.
-                        </p>
-                        <p>
-                            To also get exposure in the field, I started working as a freelancer, providing backoffice- and customer success services for the development of an AI-backed speech-to-text app.
-                        </p>
-                        <p>
-                            For more details about me, just click the link below!
-                        </p>
-                        <a href="https://www.linkedin.com/in/sebastiannagel1991" id="about-me-li" target="_blank" style="padding: 6 12 10 12">LinkedIn</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col center" id="tictactoe">
-                <div class="content m">
-                    <div class="super-header">Have a break, have a...</div>
-                    <div class="header"><nobr>...Tic Tac Toe</nobr></div>
-                    <div class="text">The app below was programmed in python using the Flask library. It was a quick exercise to learn about APIs, app deployment and the <i>minimax</i> algorithm. You can find the code on my <a href="https://github.com/does-not-compile/streamlit-tictactoe" target="_blank">GitHub</a>. Have fun playing!</div>
-                </div>
-                <form id="ttt" class="text" action="" onsubmit="userInput(event)">
-                    <input class="ttt_btn" id="btn1" value="&nbsp;" name="btn1" type="button" onclick="userInput(event, 'btn1'); this.disabled=true; this.value='X';">
-                    <input class="ttt_btn" id="btn2" value="&nbsp;" name="btn2" type="button" onclick="userInput(event, 'btn2'); this.disabled=true; this.value='X';">
-                    <input class="ttt_btn" id="btn3" value="&nbsp;" name="btn3" type="button" onclick="userInput(event, 'btn3'); this.disabled=true; this.value='X';"><br>
-                    <input class="ttt_btn" id="btn4" value="&nbsp;" name="btn4" type="button" onclick="userInput(event, 'btn4'); this.disabled=true; this.value='X';">
-                    <input class="ttt_btn" id="btn5" value="&nbsp;" name="btn5" type="button" onclick="userInput(event, 'btn5'); this.disabled=true; this.value='X';">
-                    <input class="ttt_btn" id="btn6" value="&nbsp;" name="btn6" type="button" onclick="userInput(event, 'btn6'); this.disabled=true; this.value='X';"><br>
-                    <input class="ttt_btn" id="btn7" value="&nbsp;" name="btn7" type="button" onclick="userInput(event, 'btn7'); this.disabled=true; this.value='X';">
-                    <input class="ttt_btn" id="btn8" value="&nbsp;" name="btn8" type="button" onclick="userInput(event, 'btn8'); this.disabled=true; this.value='X';">
-                    <input class="ttt_btn" id="btn9" value="&nbsp;" name="btn9" type="button" onclick="userInput(event, 'btn9'); this.disabled=true; this.value='X';">
-                </form>
-                <div class="text">
-                    <ul id='message'>
-                        &nbsp;
-                    </ul>
-                </div>
+            <form id="ttt" class="text" action="" onsubmit="userInput(event)">
+                <input class="ttt_btn" id="btn1" value="&nbsp;" name="btn1" type="button" onclick="userInput(event, 'btn1'); this.disabled=true; this.value='X';">
+                <input class="ttt_btn" id="btn2" value="&nbsp;" name="btn2" type="button" onclick="userInput(event, 'btn2'); this.disabled=true; this.value='X';">
+                <input class="ttt_btn" id="btn3" value="&nbsp;" name="btn3" type="button" onclick="userInput(event, 'btn3'); this.disabled=true; this.value='X';"><br>
+                <input class="ttt_btn" id="btn4" value="&nbsp;" name="btn4" type="button" onclick="userInput(event, 'btn4'); this.disabled=true; this.value='X';">
+                <input class="ttt_btn" id="btn5" value="&nbsp;" name="btn5" type="button" onclick="userInput(event, 'btn5'); this.disabled=true; this.value='X';">
+                <input class="ttt_btn" id="btn6" value="&nbsp;" name="btn6" type="button" onclick="userInput(event, 'btn6'); this.disabled=true; this.value='X';"><br>
+                <input class="ttt_btn" id="btn7" value="&nbsp;" name="btn7" type="button" onclick="userInput(event, 'btn7'); this.disabled=true; this.value='X';">
+                <input class="ttt_btn" id="btn8" value="&nbsp;" name="btn8" type="button" onclick="userInput(event, 'btn8'); this.disabled=true; this.value='X';">
+                <input class="ttt_btn" id="btn9" value="&nbsp;" name="btn9" type="button" onclick="userInput(event, 'btn9'); this.disabled=true; this.value='X';">
+            </form>
+            <div class="text">
+                <ul id='message'>
+                    &nbsp;
+                </ul>
             </div>
         </div>
     </body>
